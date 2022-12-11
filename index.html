@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Darkside Bank</title>
+    <link rel="stylesheet" href="./Css/style.css" />
+    <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <header>
+      <nav class="nav">
+        <div class="nav-contenedor">
+          <ul class="nav-list">
+            <li><a class="nav-link" href="#">Home</a></li>
+            <li><a class="nav-link logIn" href="#">X X X</a></li>
+          </ul>
+        </div>
+        <a class="nav-logo" href="./index.html">
+          <img src="./images/Imperial.png" height="100px" alt="logo-bank" title="logo"
+        /></a>
+        <div class="nav-contenedor">
+          <ul class="nav-list">
+            <li><a class="nav-link" href="#">Sistema de Puntos</a></li>
+            <button class="switch" id="switch">
+              <span><i class="fas fa-moon"></i></span>
+              <span><i class="fas fa-sun"></i></span>
+            </button>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <section class="modal1">
+      <div class="modal__container">
+        <h3 class="modal__title">Serv</h3>
+        <a href="#" class="button servicios" id="servicios">Serv</a>
+        <a href="#" class="button close1">Cerrar</a>
+        <p id="resultadoServicios"></p>
+      </div>
+    </section>
+
+    <section class="modal2">
+      <div class="modal__container">
+        <h3 class="modal__title">Plazo Fijo Tradicional</h3>
+        <form id="formulario">
+          <input placeholder="ingrese monto a invertir" type="number" id="monto" />
+          <input placeholder="plazo > 30 dias" type="number" id="plazo" />
+        </form>
+        <a href="#" class="button" id="simularPf">Simular Plazo Fijo</a>
+        <a href="#" class="button close2">Cerrar</a>
+        <p id="resultadoPlazoFijo"></p>
+      </div>
+    </section>
+
+    <section class="modal3">
+      <div class="modal__container">
+        <h2 class="modal__title">Sistema de Puntos</h2>
+        <h3>Usted tiene 3680 puntos</h3>
+        <a href="#" class="button" id="canjear">Articulos Disponibles</a>
+        <a href="#" class="button" id="vaciar">Vaciar</a>
+        <p id="zz2"></p>
+        <a href="#" class="button close3">Cerrar</a>
+      </div>
+    </section>
+
+    <section class="modal4">
+      <div class="modal__container">
+        <h2 class="modal__title">Resumen de su tarjeta</h2>
+        <p id="resultadoTarjeta"></p>
+        <a href="#" class="button close4">Cerrar</a>
+      </div>
+    </section>
+
+    <main id="body" class="">
+      <h1>Darkside Bank</h1>
+      <div class="centrado">
+        <div class="container_logIn">
+          <p class="modal__paragraph">Log In</p>
+          <form id="formulario">
+            <input placeholder="usuario" type="text" id="usuario" />
+            <input placeholder="contraseña" type="text" id="clave" />
+          </form>
+          <br />
+          <button href="#" class="button" id="logIn">Ingresar</button>
+        </div>
+        <p id="user"></p>
+        <br />
+      </div>
+      <section id="cuerpo" class="main invisible">
+        <div>
+          <p>Inversiones</p>
+          <button class="button plazoFijo" id="plazoFijo">Click</button>
+          <p id="pz"></p>
+        </div>
+        <div>
+          <p>Tarjeta de Credito</p>
+          <button class="button" id="resumen">Click</button>
+          <p id="resultadoTarjeta"></p>
+          <p id="tarjeta"></p>
+        </div>
+        <div>
+          <p>Pago de Servicios</p>
+          <button class="button servicios" id="servicios">Click</button>
+        </div>
+        <div>
+          <p>Transferencias</p>
+          <button class="button" id="transferencias">Click</button>
+          <p id="trans"></p>
+        </div>
+        <div>
+          <p>Seguros</p>
+          <button class="button" id="seguros">Click</button>
+          <p id="seg"></p>
+        </div>
+        <div id="conteiner"></div>
+        <div id="prueba"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p class="pie">
+        Copyright 2022 - Nicolas Gelidonidis <br />
+        Entrega Final - Curso JS Coderhouse
+      </p>
+    </footer>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./Js/index.js"></script>
+  </body>
+</html>
