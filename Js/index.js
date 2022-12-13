@@ -62,6 +62,20 @@ class Usuario {
   }
 }
 
+const openModalHelp = document.querySelector(".help");
+const modal = document.querySelector(".modal");
+const closeModal = document.querySelector(".close");
+
+openModalHelp.addEventListener("click", (e) => {
+  e.preventDefault();
+  modal.classList.add("modal--show");
+});
+
+closeModal.addEventListener("click", (e) => {
+  e.preventDefault();
+  modal.classList.remove("modal--show");
+});
+
 const user = {
   nombre: "Nicolas",
   apellido: "Gelidonidis",
@@ -297,11 +311,11 @@ document.getElementById("seguros").onclick = function segur() {
 //Sistema de Puntos
 let contenedor = document.getElementById("conteiner");
 let div = document.createElement("div");
-div.innerHTML = `<p>Sistema de Puntos</p>
-<a href="#" class="button" id="canjear">Articulos Disponibles</a>
-<p id="zz2"></p>
+div.innerHTML = `<h3>Sistema de Puntos</h3>
+<a href="#" class="button" id="canjear">Articulos Disponibles</a><br>
+<p id="zz2"></p><br>
 <a href="#" class="button" id="vaciar">Vaciar</a>
-<br>
+<br><br>
 <a href="#" class="button" id="Canasto">Ver Canasto</a>`;
 document.body.append(div);
 contenedor.append(div);
@@ -424,7 +438,6 @@ closeModal1.addEventListener("click", (e) => {
 });
 
 let facturas = document.getElementById("facturas");
-
 const traerDatos = async () => {
   const response = await fetch("./data.json");
   const data = await response.json();
@@ -441,6 +454,7 @@ const traerDatos = async () => {
     facturas.append(div);
   });
 };
+
 
 traerDatos();
 

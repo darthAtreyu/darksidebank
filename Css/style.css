@@ -286,3 +286,6 @@ margin: auto;
   font-size: larger;
 
 }
+.pago {
+  text-decoration: line-through;
+}
