@@ -15,7 +15,7 @@
         <div class="nav-contenedor">
           <ul class="nav-list">
             <li><a class="nav-link" href="#">Home</a></li>
-            <li><a class="nav-link logIn" href="#">X X X</a></li>
+            <li><a class="nav-link logIn" href="#">Ayuda</a></li>
           </ul>
         </div>
         <a class="nav-logo" href="./index.html">
@@ -23,7 +23,7 @@
         /></a>
         <div class="nav-contenedor">
           <ul class="nav-list">
-            <li><a class="nav-link" href="#">Sistema de Puntos</a></li>
+            <li><a id="billetera" class="nav-link invisible" href="#">Puntos</a></li>
             <button class="switch" id="switch">
               <span><i class="fas fa-moon"></i></span>
               <span><i class="fas fa-sun"></i></span>
@@ -35,10 +35,10 @@
 
     <section class="modal1">
       <div class="modal__container">
-        <h3 class="modal__title">Serv</h3>
-        <a href="#" class="button servicios" id="servicios">Serv</a>
+        <h3 class="modal__title">Servicios</h3>
+        <div id="facturas"></div>
+        <a href="#" class="button pagar" id="pagar">Realizar Pagos</a>
         <a href="#" class="button close1">Cerrar</a>
-        <p id="resultadoServicios"></p>
       </div>
     </section>
 
@@ -46,25 +46,25 @@
       <div class="modal__container">
         <h3 class="modal__title">Plazo Fijo Tradicional</h3>
         <form id="formulario">
-          <input placeholder="ingrese monto a invertir" type="number" id="monto" />
-          <input placeholder="plazo > 30 dias" type="number" id="plazo" />
+          <input placeholder="ingrese monto a invertir" type="text" id="monto" />
+          <input placeholder="ingrese plazo en dias" type="text" id="plazo" />
         </form>
-        <a href="#" class="button" id="simularPf">Simular Plazo Fijo</a>
+        <a href="#" class="button" id="simularPf">Constituir Plazo Fijo</a>
         <a href="#" class="button close2">Cerrar</a>
         <p id="resultadoPlazoFijo"></p>
       </div>
     </section>
 
-    <section class="modal3">
+    <!-- <section class="modal3">
       <div class="modal__container">
         <h2 class="modal__title">Sistema de Puntos</h2>
-        <h3>Usted tiene 3680 puntos</h3>
+        <h3 id="puntos">tiene 200 puntos</h3>
         <a href="#" class="button" id="canjear">Articulos Disponibles</a>
+        <div><p id="zz2"></p></div>
         <a href="#" class="button" id="vaciar">Vaciar</a>
-        <p id="zz2"></p>
         <a href="#" class="button close3">Cerrar</a>
       </div>
-    </section>
+    </section> -->
 
     <section class="modal4">
       <div class="modal__container">
@@ -98,12 +98,11 @@
         <div>
           <p>Tarjeta de Credito</p>
           <button class="button" id="resumen">Click</button>
-          <p id="resultadoTarjeta"></p>
           <p id="tarjeta"></p>
         </div>
         <div>
           <p>Pago de Servicios</p>
-          <button class="button servicios" id="servicios">Click</button>
+          <button class="button" id="serv">Click</button>
         </div>
         <div>
           <p>Transferencias</p>
@@ -116,7 +115,6 @@
           <p id="seg"></p>
         </div>
         <div id="conteiner"></div>
-        <div id="prueba"></div>
       </section>
     </main>
 

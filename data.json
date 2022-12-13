@@ -1,0 +1,6 @@
+[
+    { "id": 1, "servicio": "Agua", "saldo": 1130 },
+    { "id": 2, "servicio": "Luz", "saldo": 4268 },
+    { "id": 3, "servicio": "Gas", "saldo": 2350 },
+    { "id": 4, "servicio": "Internet", "saldo": 9550 }
+  ]

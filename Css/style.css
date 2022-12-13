@@ -144,6 +144,7 @@ h1 {
   grid-auto-columns: 100%;
   transform: var(--transform);
   transition:var(--transition);
+  text-align: center;
 }
 
 .modal__title{
@@ -157,6 +158,21 @@ h1 {
 .modal__img{
   width: 90%;
   max-width: 300px;
+}
+input {
+  background-color: #111111;
+  color:#ffffff;
+  padding: .3em 2em;
+  border-radius: 50px;
+  display: inline-block;
+  font-weight: 300;
+  text-align: center;
+  font-size: 1em;
+}
+
+::placeholder {
+  text-align: center;
+  color: #9994e4;
 }
 
 .button{
@@ -173,6 +189,23 @@ h1 {
 
 .button:hover{
   color: #9994e4;
+  background-color: #ffffff;
+}
+
+.button2{
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #9994e4;
+  padding: .3em 1em;
+  border: .5px solid ;
+  border-radius: 50px;
+  display: inline-block;
+  font-weight: 300;
+  transition: background-color .3s;
+}
+
+.button2:hover{
+  color: #4f45db;
   background-color: #ffffff;
 }
 
@@ -234,4 +267,22 @@ body {
 body.dark {
   background: #222222;
   color: #ffffff;
+}
+.containerImpuestos {
+width: 45vh;
+color:white;
+border: 1px solid;
+text-align: center;
+
+}
+
+.tituloImpuestos {
+
+margin: auto;
+  background-color: #9994e4;
+}
+
+.cuerpoImpuestos {
+  font-size: larger;
+
 }
