@@ -1,4 +1,3 @@
-
 // document.getElementById("transferencias").onclick = function transferir() {
 //   let transfer = prompt("Elija Destinatario:\n 1: Martin \n 2: Pepe \n 3: Agregar Nuevo");
 //   switch (transfer) {
@@ -79,7 +78,7 @@ closeModal.addEventListener("click", (e) => {
 const user = {
   nombre: "Nicolas",
   apellido: "Gelidonidis",
-  clave: "11111",
+  clave: "coder2022",
   cajaDeAhorro: 1200000,
   alias: "DarthAtreyu",
   cbu: 3215621456356789,
@@ -105,13 +104,12 @@ const password = user.clave;
 const puntos = user.puntos;
 
 const actualizarPuntos = () => {
-
- Swal.fire({
-      icon: "success",
-      title:"Sistema de Puntos",
-      text: "Usted tiene " + user.puntos + " acumulados",
-      timer: 5000,
-    });
+  Swal.fire({
+    icon: "success",
+    title: "Sistema de Puntos",
+    text: "Usted tiene " + user.puntos + " acumulados",
+    timer: 5000,
+  });
 };
 
 let revisarPuntaje = document.getElementById("billetera");
@@ -153,6 +151,18 @@ function logIn() {
 
 let boton = document.getElementById("logIn");
 boton.addEventListener("click", () => logIn());
+
+//Dark Mode
+const btnSwitch = document.querySelector("#switch");
+btnSwitch.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  btnSwitch.classList.toggle("active");
+  if (document.body.classList.contains("dark")) {
+    localStorage.setItem("dark-mode", "true");
+  } else {
+    localStorage.setItem("dark-mode", "false");
+  }
+});
 
 //Plazo Fijo
 const openModalPf = document.querySelector(".plazoFijo");
@@ -199,7 +209,7 @@ function plazoFijo() {
       icon: "success",
       title:
         "Su Plazo fijo de $" + monto + " ha sido constituido. Generando un interes de $" + interes.toFixed(2) + ".",
-      text: "Le han quedado $" + user.cajaDeAhorro + " en su Caja de Ahorros",
+      text: "Le han quedado $" + user.cajaDeAhorro + " en su Caja de Ahorros. <br> Sumó 100 puntos ",
       timer: 5000,
     });
     console.log(user.cajaDeAhorro);
@@ -218,18 +228,6 @@ function plazoFijo() {
 let pf = document.getElementById("simularPf");
 pf.addEventListener("click", () => plazoFijo());
 
-//Dark Mode
-const btnSwitch = document.querySelector("#switch");
-btnSwitch.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-  btnSwitch.classList.toggle("active");
-  if (document.body.classList.contains("dark")) {
-    localStorage.setItem("dark-mode", "true");
-  } else {
-    localStorage.setItem("dark-mode", "false");
-  }
-});
-
 //Tarjeta de Credito
 document.getElementById("resumen").onclick = function tarjeta() {
   let fecha = new Date();
@@ -243,12 +241,12 @@ document.getElementById("resumen").onclick = function tarjeta() {
     {
       let div = document.createElement("div");
       div.innerHTML = "<p> Producto : " + i + " $ " + (Math.random() * i * 100).toFixed(2) + "</p>";
-            ubicacion.appendChild(div);
+      ubicacion.appendChild(div);
     }
   }
   console.log("La fecha de cierre es el dia 3 ");
   user.puntos = user.puntos + 100;
-  return (document.getElementById("tarjeta").innerHTML = "ya revisó sus gastos del mes");
+  return (document.getElementById("tarjeta").innerHTML = "ya revisó sus gastos del mes <br> y Sumó 100 puntos");
 };
 
 const openModalTarjeta = document.getElementById("resumen");
@@ -265,14 +263,200 @@ closeModal4.addEventListener("click", (e) => {
   modal4.classList.remove("modal--show");
 });
 
+//Pago de Servicios
+const openModalServicios = document.getElementById("serv");
+const modal1 = document.querySelector(".modal1");
+const closeModal1 = document.querySelector(".close1");
+
+openModalServicios.addEventListener("click", (e) => {
+  e.preventDefault();
+  modal1.classList.add("modal--show");
+});
+
+closeModal1.addEventListener("click", (e) => {
+  e.preventDefault();
+  modal1.classList.remove("modal--show");
+});
+
+let facturas = document.getElementById("facturas");
+const traerDatos = async () => {
+  const response = await fetch("./data.json");
+  const data = await response.json();
+
+  data.forEach((impuestos) => {
+    const div = document.createElement("div");
+    div.innerHTML = `
+    <div class="containerImpuestos">
+          <h2 class="tituloImpuestos">${impuestos.servicio}</h2>
+          <p class="cuerpoImpuestos">$${impuestos.saldo}</p>
+          </div>
+        `;
+
+    facturas.append(div);
+  });
+};
+
+traerDatos();
+
+document.getElementById("pagar").onclick = async function servicios() {
+  const inputOptions = new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        1: "Agua",
+        2: "Luz",
+        3: "Gas",
+        4: "Internet",
+        5: "Otros",
+      });
+    }, 1000);
+  });
+
+  const { value: factura } = await Swal.fire({
+    title: "Elija el Servicio que desea pagar",
+    input: "radio",
+    inputOptions: inputOptions,
+    inputValidator: (value) => {
+      if (!value) {
+        return "Elije una Factura!";
+      }
+    },
+  });
+
+
+
+  if (factura) {
+    servicio = factura;
+  }
+  switch (servicio) {
+    case "1":
+      Swal.fire({
+        title: "Quiere abonar su Factura de Agua?",
+        text: "el saldo es de $1130",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "si, Realizar Pago!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          user.cajaDeAhorro = user.cajaDeAhorro - 1130;
+          console.log(user.cajaDeAhorro);
+
+          let p = document.createElement("p");
+          p.innerHTML = `Factura de Agua Paga, Sumó 100 puntos`;
+          let ubicacion = document.getElementById("Pago");
+          ubicacion.appendChild(p);
+
+          user.puntos = user.puntos + 100;
+          Swal.fire(
+            "Listo!",
+            "Pago Realizado, Sumó 100 puntos!, le queda en su cuenta $" + user.cajaDeAhorro,
+            "success"
+          );
+        }
+      });
+      break;
+    case "2":
+      Swal.fire({
+        title: "Quiere abonar su Factura de Luz?",
+        text: "el saldo es de $4268",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "si, Realizar Pago!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          user.cajaDeAhorro = user.cajaDeAhorro - 4268;
+          console.log(user.cajaDeAhorro);
+
+          let p = document.createElement("p");
+          p.innerHTML = `Factura de Luz Paga, Sumó 100 puntos`;
+          let ubicacion = document.getElementById("Pago");
+          ubicacion.appendChild(p);
+
+          user.puntos = user.puntos + 100;
+          Swal.fire(
+            "Listo!",
+            "Pago Realizado, Sumó 100 puntos!, le queda en su cuenta $" + user.cajaDeAhorro,
+            "success"
+          );
+        }
+      });
+      break;
+
+    case "3":
+      Swal.fire({
+        title: "Quiere abonar su Factura de Gas?",
+        text: "el saldo es de $2350",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "si, Realizar Pago!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          user.cajaDeAhorro = user.cajaDeAhorro - 2350;
+          console.log(user.cajaDeAhorro);
+
+          let p = document.createElement("p");
+          p.innerHTML = `Factura de Gas Paga, Sumó 100 puntos`;
+          let ubicacion = document.getElementById("Pago");
+          ubicacion.appendChild(p);
+
+          user.puntos = user.puntos + 100;
+          Swal.fire(
+            "Listo!",
+            "Pago Realizado, Sumó 100 puntos!, le queda en su cuenta $" + user.cajaDeAhorro,
+            "success"
+          );
+        }
+      });
+      break;
+
+    case "4":
+      Swal.fire({
+        title: "Quiere abonar su Factura de Internet?",
+        text: "el saldo es de $9550",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "si, Realizar Pago!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          user.cajaDeAhorro = user.cajaDeAhorro - 9550;
+          console.log(user.cajaDeAhorro);
+
+          let p = document.createElement("p");
+          p.innerHTML = `Factura de Internet Paga, Sumó 100 puntos`;
+          let ubicacion = document.getElementById("Pago");
+          ubicacion.appendChild(p);
+
+          user.puntos = user.puntos + 100;
+          Swal.fire(
+            "Listo!",
+            "Pago Realizado, Sumó 100 puntos!, le queda en su cuenta $" + user.cajaDeAhorro,
+            "success"
+          );
+        }
+      });
+      break;
+
+    default:
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "El sistema no funciona correctamente, vuelva a intentarlo en unos momentos!, le regalamos 100 puntos por las molestias",
+      });
+      user.puntos = user.puntos + 100;
+      break;
+  }
+};
+
 //Seguros
 const seguros = user.seguros;
-//Utilizo push para agregar un Elemento al Array
-
 seguros.push({ tipo: "viajero", estado: "inactivo", costo: 1600 });
-
-//Muestro por consola el objeto y el detalle de todos los elementos del array, tambien la cantidad total de elementos del array con .lenght
-
 document.getElementById("seguros").onclick = function segur() {
   seguros.forEach((item) => {
     console.log(item.tipo);
@@ -280,12 +464,10 @@ document.getElementById("seguros").onclick = function segur() {
     console.log(item.estado);
   });
   console.log("usted posee " + seguros.length + " seguros");
-  //Creo un nuevo array utilizando .filter y muestro por consola los seguros inactivos
 
   let segurosInactivos = seguros.filter((seguros) => seguros.estado === "inactivo");
   segurosInactivos.forEach((item) => console.log("Tienes el seguro de " + item.tipo + " inactivo"));
 
-  //indico con alert la cantidad de seguros inactivos
   Swal.fire({
     title: "usted tiene " + segurosInactivos.length + " seguro/s inactivo/s",
     text: "Desea Activarlos?",
@@ -296,13 +478,10 @@ document.getElementById("seguros").onclick = function segur() {
     confirmButtonText: "Si!",
   }).then((result) => {
     if (result.isConfirmed) {
-      Swal.fire("Seguros Impagos!", "una vez abonado reintentelo", "error");
+      Swal.fire("Seguros Impagos!", "una vez abonado reintentelo, igualmente le regalamos 100 puntos =)", "error");
       user.puntos = user.puntos + 100;
     }
   });
-  // alert("usted tiene " + segurosInactivos.length + " seguro/s inactivo/s");
-
-  //creo un nuevo array utilizando .filter y muestro por consola los seguros activos
 
   let segurosActivos = seguros.filter((seguros) => seguros.estado === "activo");
   segurosActivos.forEach((item) => console.log("Tienes el seguro de " + item.tipo + " activo"));
@@ -310,6 +489,7 @@ document.getElementById("seguros").onclick = function segur() {
 
 //Sistema de Puntos
 let contenedor = document.getElementById("conteiner");
+
 let div = document.createElement("div");
 div.innerHTML = `<h3>Sistema de Puntos</h3>
 <a href="#" class="button" id="canjear">Articulos Disponibles</a><br>
@@ -379,28 +559,29 @@ const agregar = (id) => {
   }
 };
 
-//Utilizo un ForEach para listar todos los productos mostrandolos como elementos dentro del Modal (Que a su vez tb esta creado desde JavaScript en la linea 233)
-
 let simularCanje = document.getElementById("canjear");
-simularCanje.addEventListener("click", () =>
+let ubicacion = document.getElementById("zz2");
+console.log(ubicacion.textContent)
+
+ simularCanje.addEventListener("click", () =>
+
   canjes.forEach((item) => {
+    
     let div = document.createElement("div");
     div.innerHTML = `
       <p>Id: ${item.id} - ${item.nombre}</p>
       <b>${item.puntos} puntos</b> <br>
       <button class="button2" id="botonA${item.id}">Canjear</button>
       <br>`;
-    //ubico los divs
-    let ubicacion = document.getElementById("zz2");
+
     ubicacion.appendChild(div);
 
-    //Diferencio el boton con el n de Id del item
+
     let botonA = document.getElementById(`botonA${item.id}`);
     botonA.addEventListener("click", () => agregar(item.id));
   })
 );
 
-//creo una funcion para limpiar el localStorage
 
 const vaciar = document.getElementById("vaciar");
 vaciar.addEventListener(
@@ -416,179 +597,4 @@ vaciar.addEventListener(
 );
 
 let canasto = document.getElementById("Canasto");
-canasto.addEventListener("click", () => 
-console.log(localStorage.getItem("Canasto", canjes)),
-
-);
-
-//Pago de Servicios
-
-const openModalServicios = document.getElementById("serv");
-const modal1 = document.querySelector(".modal1");
-const closeModal1 = document.querySelector(".close1");
-
-openModalServicios.addEventListener("click", (e) => {
-  e.preventDefault();
-  modal1.classList.add("modal--show");
-});
-
-closeModal1.addEventListener("click", (e) => {
-  e.preventDefault();
-  modal1.classList.remove("modal--show");
-});
-
-let facturas = document.getElementById("facturas");
-const traerDatos = async () => {
-  const response = await fetch("./data.json");
-  const data = await response.json();
-
-  data.forEach((impuestos) => {
-    const div = document.createElement("div");
-    div.innerHTML = `
-    <div class="containerImpuestos">
-          <h2 class="tituloImpuestos">${impuestos.servicio}</h2>
-          <p class="cuerpoImpuestos">$${impuestos.saldo}</p>
-          </div>
-        `;
-
-    facturas.append(div);
-  });
-};
-
-
-traerDatos();
-
-document.getElementById("pagar").onclick = async function servicios() {
-  const inputOptions = new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        1: "Agua",
-        2: "Luz",
-        3: "Gas",
-        4: "Internet",
-        5: "Otros",
-      });
-    }, 1000);
-  });
-
-  const { value: factura } = await Swal.fire({
-    title: "Elija el Servicio que desea pagar",
-    input: "radio",
-    inputOptions: inputOptions,
-    inputValidator: (value) => {
-      if (!value) {
-        return "Elije una Factura!";
-      }
-    },
-  });
-
-  if (factura) {
-    servicio = factura;
-  }
-
-  // prompt("Que servicio quiere abonar?:\n 1: Agua \n 2: Luz \n 3: Gas \n 4: Internet \n 5: Otro");
-  switch (servicio) {
-    case "1":
-      Swal.fire({
-        title: "Quiere abonar su Factura de Agua?",
-        text: "el saldo es de 1130",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "si, Realizar Pago!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          user.cajaDeAhorro = user.cajaDeAhorro - 1130;
-          console.log(user.cajaDeAhorro);
-          user.puntos = user.puntos + 100;
-          Swal.fire("Listo!", "Pago Realizado, le queda en su cuenta $" + user.cajaDeAhorro, "success");
-        }
-      });
-      break;
-    case "2":
-      Swal.fire({
-        title: "Quiere abonar su Factura de Luz?",
-        text: "el saldo es de 4268",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "si, Realizar Pago!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          user.cajaDeAhorro = user.cajaDeAhorro - 4268;
-          console.log(user.cajaDeAhorro);
-          user.puntos = user.puntos + 100;
-          Swal.fire("Listo!", "Pago Realizado, le queda en su cuenta $" + user.cajaDeAhorro, "success");
-        }
-      });
-      break;
-    // let luz = confirm("Su factura de Luz es de $4268 \n Realizar el pago?");
-    // if (luz == true) {
-    //   alert("se realizo el pago con exito");
-    // } else {
-    //   alert("No se realizo el pago");
-    // }
-    // break;
-    case "3":
-      Swal.fire({
-        title: "Quiere abonar su Factura de Gas?",
-        text: "el saldo es de 2350",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "si, Realizar Pago!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          user.cajaDeAhorro = user.cajaDeAhorro - 2350;
-          console.log(user.cajaDeAhorro);
-          user.puntos = user.puntos + 100;
-          Swal.fire("Listo!", "Pago Realizado, le queda en su cuenta $" + user.cajaDeAhorro, "success");
-        }
-      });
-      break;
-    // let gas = confirm("Su factura de Gas es de $2350 \n Realizar el pago?");
-    // if (gas == true) {
-    //   alert("se realizo el pago con exito");
-    // } else {
-    //   alert("No se realizo el pago");
-    // }
-    // break;
-    case "4":
-      Swal.fire({
-        title: "Quiere abonar su Factura de Internet?",
-        text: "el saldo es de 9550",
-        icon: "question",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "si, Realizar Pago!",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          user.cajaDeAhorro = user.cajaDeAhorro - 9550;
-          console.log(user.cajaDeAhorro);
-          user.puntos = user.puntos + 100;
-          Swal.fire("Listo!", "Pago Realizado, le queda en su cuenta $" + user.cajaDeAhorro, "success");
-        }
-      });
-      break;
-    // let internet = confirm("Su factura de Internet es de $6550 \n Realizar el pago?");
-    // if (internet == true) {
-    //   alert("se realizo el pago con exito");
-    // } else {
-    //   alert("No se realizo el pago");
-    // }
-    // break;
-    default:
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "El sistema no funciona correctamente, vuelva a intentarlo en unos momentos!",
-      });
-      user.puntos = user.puntos + 100;
-      // alert("El sistema no funciona correctamente, vuelva a intentarlo en unos momentos");
-      break;
-  }
-};
+canasto.addEventListener("click", () => console.log(localStorage.getItem("Canasto", canjes)));

@@ -37,6 +37,7 @@
       <div class="modal__container">
         <h3 class="modal__title">Servicios</h3>
         <div id="facturas"></div>
+        <img src="./images/Promo.png" alt="promo" />
         <a href="#" class="button pagar" id="pagar">Realizar Pagos</a>
         <a href="#" class="button close1">Cerrar</a>
       </div>
@@ -45,7 +46,7 @@
     <section class="modal2">
       <div class="modal__container">
         <h3 class="modal__title">Plazo Fijo Tradicional</h3>
-        <form id="formulario">
+        <form class="formulario">
           <input placeholder="ingrese monto a invertir" type="text" id="monto" />
           <input placeholder="ingrese plazo en dias" type="text" id="plazo" />
         </form>
@@ -58,16 +59,36 @@
     <section class="modal">
       <div class="modal__container">
         <h2 class="modal__title">Ayuda</h2>
-        <h3 id="puntos">Guia del sitio</h3>
-        <p></p>
+        <div class="guiaSitio">
+          <h3 id="puntos">Guia del sitio</h3>
+          <p>Este es un simulador de Home Banking, donde podrá realizar distintas operaciones y generar puntos</p>
+          <p>Para comenzar, ingrese su usuario y su contraseña: <b>"Nicolas" - "coder2022"</b></p>
+          <hr />
+          <p>Desde el Nav, puede revisar su puntaje actual "Puntos"</p>
+          <hr />
+          <p><b>Inversiones :</b> Ingrese un valor y un plazo para realizar su primera Inversion</p>
+          <hr />
+          <p><b>Tarjeta de Credito :</b> Podrá visualizar su resumen mensual de productos random</p>
+          <hr />
+          <p><b>Pago de Servicios :</b> Abone cada servicio para sumar mas puntos</p>
+          <hr />
+          <p><b>Transferencias :</b> Proximamente</p>
+          <hr />
+          <p><b>Seguros :</b> Revise sus seguros Inactivos</p>
+          <hr />
+          <p><b>Sistema de Puntos :</b> Ahora si, con los puntos acumulados, reclame sus premios!</p>
+        </div>
         <a href="#" class="button close">Cerrar</a>
       </div>
     </section>
 
     <section class="modal4">
       <div class="modal__container">
-        <h2 class="modal__title">Resumen de su tarjeta</h2>
-        <p id="resultadoTarjeta"></p>
+        <h4 class="">Resumen de su tarjeta</h4>
+        <div class="cardContainer">
+          <img src="./images/DarkCard.png" alt="card" />
+          <p id="resultadoTarjeta"></p>
+        </div>
         <a href="#" class="button close4">Cerrar</a>
       </div>
     </section>
@@ -77,9 +98,9 @@
       <div class="centrado">
         <div class="container_logIn">
           <p class="modal__paragraph">Log In</p>
-          <form id="formulario">
+          <form class="formulario">
             <input placeholder="usuario" type="text" id="usuario" />
-            <input placeholder="contraseña" type="text" id="clave" />
+            <input placeholder="contraseña" type="password" id="clave" />
           </form>
           <br />
           <button href="#" class="button" id="logIn">Ingresar</button>
@@ -101,6 +122,7 @@
         <div>
           <h3>Pago de Servicios</h3>
           <button class="button" id="serv">Click</button>
+          <p id="Pago"></p>
         </div>
         <div>
           <h3>Transferencias</h3>
@@ -110,7 +132,7 @@
         <div>
           <h3>Seguros</h3>
           <button class="button" id="seguros">Click</button>
-          <p id="seg"></p>
+          
         </div>
         <div id="conteiner"></div>
       </section>
