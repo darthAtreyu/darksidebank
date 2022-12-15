@@ -290,7 +290,8 @@ body.dark {
   text-decoration: line-through;
 }
 
-.cardContainer, .guiaSitio{
+.cardContainer,
+.guiaSitio {
   background-color: #ffffff;
   color: #111111;
   padding: 25px;

@@ -1,53 +1,3 @@
-// document.getElementById("transferencias").onclick = function transferir() {
-//   let transfer = prompt("Elija Destinatario:\n 1: Martin \n 2: Pepe \n 3: Agregar Nuevo");
-//   switch (transfer) {
-//     case "1":
-//       let martin = prompt("Cuanto desea transferir");
-//       if (martin > 1000) {
-//         let conf = confirm("Esta seguro que desea Transferir a Martin $ " + martin);
-//         if (conf == true) {
-//           alert("se realizo la transferencia de $ " + martin + " a Martin");
-//           console.log("se realizo la transferencia de $ " + martin + " a Martin");
-//           document.getElementById("trans").innerHTML = "se realizo la transferencia de $ " + martin + " a Martin";
-//         } else {
-//           alert("No se realizo ninguna transferencia");
-//         }
-//       } else {
-//         alert("Debe ingresar un valor mayor a $1000");
-//       }
-//       break;
-//     case "2":
-//       let pepe = prompt("Cuanto desea transferir");
-//       if (pepe > 1000) {
-//         let conf = confirm("Esta seguro que desea Transferir a Pepe $ " + pepe);
-//         if (conf == true) {
-//           alert("se realizo la transferencia de $ " + pepe + " a Pepe");
-//           console.log("se realizo la transferencia de $ " + pepe + " a Pepe");
-//           document.getElementById("trans").innerHTML = "se realizo la transferencia de $ " + pepe + " a Pepe";
-//         } else {
-//           alert("No se realizo ninguna transferencia");
-//         }
-//       } else {
-//         alert("Debe ingresar un valor mayor a $1000");
-//       }
-//       break;
-//     case "3":
-//       let persona1 = new Persona({
-//         nombre: prompt("Nombre"),
-//         apellido: prompt("Apellido"),
-//         alias: "el malvado",
-//         cbu: (Math.random() * 10000000000000).toFixed(0),
-//       });
-//       console.log(persona1);
-//       document.getElementById("trans").innerHTML =
-//         "se agrego con exito a: <br> " + persona1.nombre + " " + persona1.apellido + " <br> CBU " + persona1.cbu;
-//       break;
-//     default:
-//       alert("opcion inválida");
-//       break;
-//   }
-// };
-
 //Array Usuario
 class Usuario {
   constructor(user) {
@@ -209,7 +159,7 @@ function plazoFijo() {
       icon: "success",
       title:
         "Su Plazo fijo de $" + monto + " ha sido constituido. Generando un interes de $" + interes.toFixed(2) + ".",
-      text: "Le han quedado $" + user.cajaDeAhorro + " en su Caja de Ahorros. <br> Sumó 100 puntos ",
+      text: "Le han quedado $" + user.cajaDeAhorro + " en su Caja de Ahorros. Sumó 100 puntos ",
       timer: 5000,
     });
     console.log(user.cajaDeAhorro);
@@ -500,22 +450,6 @@ div.innerHTML = `<h3>Sistema de Puntos</h3>
 document.body.append(div);
 contenedor.append(div);
 
-// const openModalPuntos = document.querySelector(".canjes");
-// const modal3 = document.querySelector(".modal3");
-// const closeModal3 = document.querySelector(".close3");
-
-// openModalPuntos.addEventListener("click", (e) => {
-//   e.preventDefault();
-//   modal3.classList.add("modal--show");
-// });
-
-// closeModal3.addEventListener("click", (e) => {
-//   e.preventDefault();
-//   modal3.classList.remove("modal--show");
-// });
-
-//Creo un Array con elementos para canjear por puntos
-
 let canjes = [
   { id: 1, nombre: "Set de Toallas", puntos: 800, cantidad: 0 },
   { id: 2, nombre: "Set de Cubiertos", puntos: 650, cantidad: 0 },
@@ -576,12 +510,12 @@ console.log(ubicacion.textContent)
 
     ubicacion.appendChild(div);
 
-
     let botonA = document.getElementById(`botonA${item.id}`);
     botonA.addEventListener("click", () => agregar(item.id));
   })
 );
 
+(Vaciar) => {}
 
 const vaciar = document.getElementById("vaciar");
 vaciar.addEventListener(
