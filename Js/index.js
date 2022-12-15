@@ -272,8 +272,6 @@ document.getElementById("pagar").onclick = async function servicios() {
     },
   });
 
-
-
   if (factura) {
     servicio = factura;
   }
@@ -457,8 +455,7 @@ let canjes = [
   { id: 4, nombre: "Lapicera", puntos: 150, cantidad: 0 },
 ];
 
-//La idea es hacerlo en un HTML Aparte para el proyecto final como si fuera un carro de compras
-//Utilizo la funcion agregar para ingresar los items al localStorage "Billetera"
+
 
 const agregar = (id) => {
   let billeteraStorage = JSON.parse(localStorage.getItem("Canasto"));
@@ -466,8 +463,20 @@ const agregar = (id) => {
 
   if (billeteraStorage) {
     let nuevaBilletera = billeteraStorage;
+    let yaExiste = false;
+    for (let i = 0; i < nuevaBilletera.length; i++) {
+      if (nuevaBilletera[i].id == objeto.id) {
+        yaExiste = true;
+        objeto = nuevaBilletera[i];
+      }
+    }
+    if (yaExiste) {
+      objeto.cantidad = objeto.cantidad + 1;
+    } else {
+      objeto.cantidad = 1;
+      nuevaBilletera.push(objeto);
+    }
 
-    nuevaBilletera.push(objeto);
     localStorage.setItem("Canasto", JSON.stringify(nuevaBilletera));
 
     const Toast = Swal.mixin({
@@ -487,6 +496,7 @@ const agregar = (id) => {
       title: objeto.nombre + " Agregado",
     });
   } else {
+    objeto.cantidad = 1;
     let billetera = [objeto];
 
     localStorage.setItem("Canasto", JSON.stringify(billetera));
@@ -495,12 +505,9 @@ const agregar = (id) => {
 
 let simularCanje = document.getElementById("canjear");
 let ubicacion = document.getElementById("zz2");
-console.log(ubicacion.textContent)
 
- simularCanje.addEventListener("click", () =>
-
+simularCanje.addEventListener("click", () =>
   canjes.forEach((item) => {
-    
     let div = document.createElement("div");
     div.innerHTML = `
       <p>Id: ${item.id} - ${item.nombre}</p>
@@ -515,7 +522,7 @@ console.log(ubicacion.textContent)
   })
 );
 
-(Vaciar) => {}
+(Vaciar) => {};
 
 const vaciar = document.getElementById("vaciar");
 vaciar.addEventListener(
@@ -530,5 +537,45 @@ vaciar.addEventListener(
     })
 );
 
-let canasto = document.getElementById("Canasto");
-canasto.addEventListener("click", () => console.log(localStorage.getItem("Canasto", canjes)));
+const openModalCanasto = document.getElementById("Canasto");
+const modal3 = document.querySelector(".modal3");
+const closeModal3 = document.querySelector(".close3");
+
+openModalCanasto.addEventListener("click", (e) => {
+  e.preventDefault();
+  modal3.classList.add("modal--show");
+});
+
+closeModal3.addEventListener("click", (e) => {
+  e.preventDefault();
+  modal3.classList.remove("modal--show");
+});
+
+let verCanasto = JSON.parse(localStorage.getItem("Canasto", canjes));
+
+const actualizarCanasto = () => {
+  verCanasto = JSON.parse(localStorage.getItem("Canasto", canjes));
+  console.log(verCanasto);
+};
+
+let canastito = document.getElementById("canastito");
+const traerCanasto = () => {
+  verCanasto.forEach((item) => {
+    const div = document.createElement("div");
+    div.innerHTML = `
+    <div class="containerImpuestos">
+          <h3>Item: ${item.nombre}</h3>
+          <p>Cantidad: ${item.cantidad}</p>
+          </div>
+        `;
+
+    canastito.append(div);
+  });
+};
+
+traerCanasto();
+
+let revisarCanasto = document.getElementById("Canasto");
+revisarCanasto.addEventListener("click", () => actualizarCanasto());
+
+
