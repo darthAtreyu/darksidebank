@@ -185,9 +185,11 @@ document.getElementById("resumen").onclick = function tarjeta() {
   let mes = fecha.getMonth() + 1;
   let año = fecha.getFullYear();
   console.log("Gastos del Mes hasta el " + dia + " del " + mes + " del " + año);
+  let fechaTarjet = document.getElementById("fechaTarjeta")
+  fechaTarjet.innerHTML = "Gastos del Mes hasta el " + dia + " del " + mes + " del " + año
   let ubicacion = document.getElementById("resultadoTarjeta");
+  ubicacion.innerHTML = " "
   for (i = 1; i < 11; i++) {
-    console.log("Producto " + i + ": $ " + (Math.random() * i * 100).toFixed(2));
     {
       let div = document.createElement("div");
       div.innerHTML = "<p> Producto : " + i + " $ " + (Math.random() * i * 100).toFixed(2) + "</p>";
@@ -402,6 +404,16 @@ document.getElementById("pagar").onclick = async function servicios() {
   }
 };
 
+//Transferencias
+
+const transferir = document.getElementById("transferencias");
+transferir.addEventListener("click", () => Swal.fire({
+  icon: 'error',
+  title: 'Oops...',
+  text: 'En estos momentos no es posible realizar transferencias!',
+  footer: '<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Desea Obtener Ayuda ?</a>'
+}));
+
 //Seguros
 const seguros = user.seguros;
 seguros.push({ tipo: "viajero", estado: "inactivo", costo: 1600 });
@@ -412,6 +424,11 @@ document.getElementById("seguros").onclick = function segur() {
     console.log(item.estado);
   });
   console.log("usted posee " + seguros.length + " seguros");
+  
+  let s = document.createElement("p");
+  s.innerHTML = "Usted posee " + seguros.length + " seguros";
+  let ubicacion = document.getElementById("seguritos");
+  ubicacion.appendChild(s);
 
   let segurosInactivos = seguros.filter((seguros) => seguros.estado === "inactivo");
   segurosInactivos.forEach((item) => console.log("Tienes el seguro de " + item.tipo + " inactivo"));
@@ -454,8 +471,7 @@ let canjes = [
   { id: 3, nombre: "Taza", puntos: 500, cantidad: 0 },
   { id: 4, nombre: "Lapicera", puntos: 150, cantidad: 0 },
 ];
-
-
+localStorage.setItem("Canasto", JSON.stringify(canjes));
 
 const agregar = (id) => {
   let billeteraStorage = JSON.parse(localStorage.getItem("Canasto"));
@@ -507,6 +523,7 @@ let simularCanje = document.getElementById("canjear");
 let ubicacion = document.getElementById("zz2");
 
 simularCanje.addEventListener("click", () =>
+(ubicacion.innerHTML = " ") -
   canjes.forEach((item) => {
     let div = document.createElement("div");
     div.innerHTML = `
@@ -522,7 +539,8 @@ simularCanje.addEventListener("click", () =>
   })
 );
 
-(Vaciar) => {};
+let verCanasto = JSON.parse(localStorage.getItem("Canasto", canjes));
+verCanasto = "Canasto Vacio"
 
 const vaciar = document.getElementById("vaciar");
 vaciar.addEventListener(
@@ -530,11 +548,13 @@ vaciar.addEventListener(
   () =>
     localStorage.clear("Canasto") -
     (user.puntos = user.puntos + 100) -
+    (localStorage.setItem("Canasto", JSON.stringify(canjes))) -
     Swal.fire({
       icon: "success",
       title: "Productos eliminados",
       text: "se ha vaciado el canasto!",
     })
+
 );
 
 const openModalCanasto = document.getElementById("Canasto");
@@ -551,31 +571,29 @@ closeModal3.addEventListener("click", (e) => {
   modal3.classList.remove("modal--show");
 });
 
-let verCanasto = JSON.parse(localStorage.getItem("Canasto", canjes));
+
 
 const actualizarCanasto = () => {
   verCanasto = JSON.parse(localStorage.getItem("Canasto", canjes));
   console.log(verCanasto);
-};
+  let canastito = document.getElementById("canastito");
+  canastito.innerHTML = " ";
 
-let canastito = document.getElementById("canastito");
-const traerCanasto = () => {
-  verCanasto.forEach((item) => {
-    const div = document.createElement("div");
-    div.innerHTML = `
+  const traerCanasto = () => {
+    verCanasto.forEach((item) => {
+      const div = document.createElement("div");
+      div.innerHTML = `
     <div class="containerImpuestos">
           <h3>Item: ${item.nombre}</h3>
           <p>Cantidad: ${item.cantidad}</p>
           </div>
         `;
 
-    canastito.append(div);
-  });
+      canastito.append(div);
+    });
+  };
+  traerCanasto();
 };
-
-traerCanasto();
 
 let revisarCanasto = document.getElementById("Canasto");
 revisarCanasto.addEventListener("click", () => actualizarCanasto());
-
-
